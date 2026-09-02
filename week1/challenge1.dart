@@ -56,18 +56,6 @@ class SatelliteTelemetry {
         .toList();
   }
 
-  double checkAverage(String sensorName) {
-    final result = findSensor(sensorName);
-    if (result.isEmpty) {
-      return 0;
-    }
-    double total = 0;
-    for (var measurement in result) {
-      total = total + measurement.value;
-    }
-    return total / result.length;
-  }
-
   void checkSensorValue(double value, SensorConfig config) {
     if (config.isValid(value)) {
       print('$value, OK');
@@ -106,9 +94,6 @@ void main() {
   for (var measurement in temperatures) {
     print('${measurement.value} ${measurement.unit}');
   }
-  final average = tele.checkAverage('temperature');
-
-  print('\nAverage temperature: $average C');
 
   final temperatureConfig = SensorConfig(
     sensorName: 'temperature',
