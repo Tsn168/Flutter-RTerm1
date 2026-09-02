@@ -2,12 +2,11 @@ class Measurement {
   final String sensorName;
   final double value;
   final String unit;
-  final String? comment;
+
   Measurement({
     required this.sensorName,
     required this.value,
     required this.unit,
-    this.comment,
   });
 }
 
@@ -15,51 +14,57 @@ class SensorConfig {
   final String sensorName;
   final double? minimum;
   final double? maximum;
+
   SensorConfig({required this.sensorName, this.minimum, this.maximum});
 
   bool isValid(double value) {
     if (minimum != null && value < minimum!) {
       return false;
     }
+
     if (maximum != null && value > maximum!) {
       return false;
     }
+
     return true;
   }
 }
 
-class satelitetelemetry {
-  final List<Measurement> mesurments = [];
+class SatelliteTelemetry {
+  final List<Measurement> measurements = [];
 
-  void addMesurement(Measurement mesurment) {
-    mesurments.add(mesurment);
+  void addMeasurement(Measurement measurement) {
+    measurements.add(measurement);
   }
 
   void display() {
-    for (var mesurement in mesurments) {
+    for (var measurement in measurements) {
       print(
-        '${mesurement.sensorName}'
-        '${mesurement.unit}'
-        '${mesurement.value}',
+        '${measurement.sensorName} '
+        '${measurement.value} '
+        '${measurement.unit}',
       );
     }
   }
 
-  List<Measurement> findWhichSensor(String sensorName) {
-    return mesurments
-        .where((mesurments) => mesurments.sensorName == sensorName)
+  List<Measurement> findSensor(String sensorName) {
+    return measurements
+        .where((measurement) => measurement.sensorName == sensorName)
         .toList();
   }
 
   double checkAverage(String sensorName) {
-    final result = findWhichSensor(sensorName);
+    final result = findSensor(sensorName);
+
     if (result.isEmpty) {
       return 0;
     }
     double total = 0;
-    for (var mesurements in result) {
-      total = total + mesurements.value;
+
+    for (var measurement in result) {
+      total = total + measurement.value;
     }
+
     return total / result.length;
   }
 
@@ -73,9 +78,43 @@ class satelitetelemetry {
 }
 
 void main() {
-  final tele = satelitetelemetry();
-
-  tele.addMesurement(
-    Measurement(sensorName: "temparature", value: 100, unit: 'C'),
+  final tele = SatelliteTelemetry();
+  tele.addMeasurement(
+    Measurement(sensorName: 'temperature', value: 24.5, unit: 'C'),
   );
+
+  tele.addMeasurement(
+    Measurement(sensorName: 'temperature', value: 27.2, unit: 'C'),
+  );
+
+  tele.addMeasurement(Measurement(sensorName: 'battery', value: 87, unit: '%'));
+
+  tele.addMeasurement(
+    Measurement(sensorName: 'altitude', value: 540, unit: 'km'),
+  );
+
+  tele.addMeasurement(
+    Measurement(sensorName: 'speed', value: 7.8, unit: 'km/s'),
+  );
+
+  tele.display();
+
+  final temperatures = tele.findSensor('temperature');
+
+  print('\nTemperature measurements:');
+
+  for (var measurement in temperatures) {
+    print('${measurement.value} ${measurement.unit}');
+  }
+  final average = tele.checkAverage('temperature');
+
+  print('\nAverage temperature: $average C');
+
+  final temperatureConfig = SensorConfig(
+    sensorName: 'temperature',
+    minimum: 0,
+    maximum: 50,
+  );
+
+  tele.checkSensorValue(100, temperatureConfig);
 }
