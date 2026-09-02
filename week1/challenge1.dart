@@ -12,20 +12,23 @@ class Measurement {
 
 class SensorConfig {
   final String sensorName;
-  final double? minimum;
-  final double? maximum;
+  final double minimum;
+  final double maximum;
 
-  SensorConfig({required this.sensorName, this.minimum, this.maximum});
+  SensorConfig({
+    required this.sensorName,
+    required this.minimum,
+    required this.maximum,
+  });
 
   bool isValid(double value) {
-    if (minimum != null && value < minimum!) {
+    if (value < minimum) {
       return false;
     }
 
-    if (maximum != null && value > maximum!) {
+    if (value > maximum) {
       return false;
     }
-
     return true;
   }
 }
@@ -55,16 +58,13 @@ class SatelliteTelemetry {
 
   double checkAverage(String sensorName) {
     final result = findSensor(sensorName);
-
     if (result.isEmpty) {
       return 0;
     }
     double total = 0;
-
     for (var measurement in result) {
       total = total + measurement.value;
     }
-
     return total / result.length;
   }
 
