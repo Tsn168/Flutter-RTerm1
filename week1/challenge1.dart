@@ -1,7 +1,7 @@
 class Measurement {
-  final String sensorName;
-  final double value;
-  final String unit;
+  String sensorName;
+  double value;
+  String unit;
 
   Measurement({
     required this.sensorName,
@@ -11,9 +11,9 @@ class Measurement {
 }
 
 class SensorConfig {
-  final String sensorName;
-  final double minimum;
-  final double maximum;
+  String sensorName;
+  double minimum;
+  double maximum;
 
   SensorConfig({
     required this.sensorName,
@@ -88,8 +88,6 @@ void main() {
   tele.display();
 
   final temperatures = tele.findSensor('temperature');
-
-  print('\nTemperature measurements:');
 
   for (var measurement in temperatures) {
     print('${measurement.value} ${measurement.unit}');
