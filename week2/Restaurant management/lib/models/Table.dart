@@ -12,8 +12,4 @@ class Table {
   void reserve() {
     isAvailable = false;
   }
-
-  void release() {
-    isAvailable = true;
-  }
 }
