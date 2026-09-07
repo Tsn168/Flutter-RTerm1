@@ -1,10 +1,19 @@
-class Menuitem {
-  String itemName;
-  double prices;
-  bool isAvailable = true;
-  Menuitem({
+class MenuItem {
+  final String itemName;
+  final double price;
+  bool isAvailable;
+
+  MenuItem({
     required this.itemName,
-    required this.prices,
-    required this.isAvailable,
+    required this.price,
+    this.isAvailable = true,
   });
+
+  void makeUnavailable() {
+    isAvailable = false;
+  }
+
+  void makeAvailable() {
+    isAvailable = true;
+  }
 }

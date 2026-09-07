@@ -1,10 +1,19 @@
 class Table {
-  double tableNumber;
-  int numSeat;
-  bool isAvailable = true ;
+  final int tableNumber;
+  final int numberOfSeats;
+  bool isAvailable;
+
   Table({
     required this.tableNumber,
-    required this.isAvailable,
-    required this.numSeat,
+    required this.numberOfSeats,
+    this.isAvailable = true,
   });
+
+  void reserve() {
+    isAvailable = false;
+  }
+
+  void release() {
+    isAvailable = true;
+  }
 }

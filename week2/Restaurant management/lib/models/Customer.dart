@@ -1,8 +1,16 @@
-import 'Order.dart';
+import 'order.dart';
 
 class Customer {
-  String name;
-  double phone;
-  List<Order> order = [];
-  Customer({required this.name, required this.phone, required this.order});
+  final String name;
+  final String phone;
+
+  final List<Order> _orders = [];
+
+  Customer({required this.name, required this.phone});
+
+  List<Order> get orders => List.unmodifiable(_orders);
+
+  void addOrder(Order order) {
+    _orders.add(order);
+  }
 }

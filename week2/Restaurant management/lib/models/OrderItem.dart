@@ -1,8 +1,10 @@
-import 'MenuItem.dart';
-import 'Order.dart';
+import 'menu_item.dart';
 
-class Orderitem {
-  Menuitem menuItem;
-  double quantity;
-  Orderitem({required this.menuItem, required this.quantity});
+class OrderItem {
+  final MenuItem menuItem;
+  final int quantity;
+
+  OrderItem({required this.menuItem, required this.quantity});
+
+  double get subtotal => menuItem.price * quantity;
 }
