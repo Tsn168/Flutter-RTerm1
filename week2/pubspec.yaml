@@ -1,0 +1,7 @@
+name: restaurant_management
+
+environment:
+  sdk: ^3.12.0
+
+dev_dependencies:
+  test: ^1.25.0

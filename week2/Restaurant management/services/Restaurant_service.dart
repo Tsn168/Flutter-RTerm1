@@ -3,7 +3,6 @@ import '../lib/models/OrderItem.dart';
 import '../lib/models/table.dart';
 import '../lib/models/MenuItem.dart';
 import '../lib/models/order.dart';
-import '../lib/models/restaurant.dart';
 
 class RestaurantService {
   // 1. Reserve a table
