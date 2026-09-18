@@ -1,9 +1,8 @@
 import 'package:test/test.dart';
 
-import '../services/Restaurant_service.dart';
-import '../lib/models/table.dart';
-import '../lib/models/customer.dart';
-import '../lib/models/MenuItem.dart';
+import '../../lib/services/Restaurant_service.dart';
+import '../../lib/models/table.dart';
+import '../../lib/models/MenuItem.dart';
 
 void main() {
   test('Available table can be reserved', () {
@@ -28,15 +27,9 @@ void main() {
   test('Can create order with available table', () {
     final service = RestaurantService();
 
-    final customer = Customer(name: 'Somnang', phone: '012345678');
-
     final table = Table(tableNumber: 1, numberOfSeats: 4);
 
-    final order = service.createOrder(
-      orderId: 'O001',
-      customer: customer,
-      table: table,
-    );
+    final order = service.createOrder(orderId: 'O001', table: table);
 
     expect(order, isNotNull);
     expect(table.isAvailable, false);
@@ -45,15 +38,9 @@ void main() {
   test('Can add available menu item to order', () {
     final service = RestaurantService();
 
-    final customer = Customer(name: 'Somnang', phone: '012345678');
-
     final table = Table(tableNumber: 1, numberOfSeats: 4);
 
-    final order = service.createOrder(
-      orderId: 'O001',
-      customer: customer,
-      table: table,
-    );
+    final order = service.createOrder(orderId: 'O001', table: table);
 
     final menuItem = MenuItem(itemName: 'Fried Rice', price: 5.0);
 
@@ -70,15 +57,9 @@ void main() {
   test('Cannot add item with quantity 0', () {
     final service = RestaurantService();
 
-    final customer = Customer(name: 'Somnang', phone: '012345678');
-
     final table = Table(tableNumber: 1, numberOfSeats: 4);
 
-    final order = service.createOrder(
-      orderId: 'O001',
-      customer: customer,
-      table: table,
-    );
+    final order = service.createOrder(orderId: 'O001', table: table);
 
     final menuItem = MenuItem(itemName: 'Fried Rice', price: 5.0);
 

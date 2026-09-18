@@ -1,8 +1,8 @@
-import '../lib/models/customer.dart';
-import '../lib/models/OrderItem.dart';
-import '../lib/models/table.dart';
-import '../lib/models/MenuItem.dart';
-import '../lib/models/order.dart';
+import 'package:restaurant_management/models/orderItem.dart';
+
+import '../models/table.dart';
+import '../models/MenuItem.dart';
+import '../models/order.dart';
 
 class RestaurantService {
   // 1. Reserve a table
@@ -17,18 +17,12 @@ class RestaurantService {
   }
 
   // 2. Create an order
-  Order? createOrder({
-    required String orderId,
-    required Customer customer,
-    required Table table,
-  }) {
+  Order? createOrder({required String orderId, required Table table}) {
     if (!table.isAvailable) {
       return null;
     }
 
-    final order = Order(orderId: orderId, customer: customer, table: table);
-
-    customer.addOrder(order);
+    final order = Order(orderId: orderId, table: table);
 
     table.reserve();
 

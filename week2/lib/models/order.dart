@@ -1,6 +1,6 @@
 import 'customer.dart';
 import 'table.dart';
-import 'OrderItem.dart';
+import 'orderItem.dart';
 
 class Order {
   final String orderId;
