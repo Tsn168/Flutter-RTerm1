@@ -21,7 +21,7 @@ class SensorConfig {
     required this.maximum,
   });
 
-  bool isValid(double value) {
+  bool isValid(double value) /{
     if (value < minimum) {
       return false;
     }

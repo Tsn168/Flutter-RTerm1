@@ -1,15 +1,13 @@
-import 'customer.dart';
 import 'table.dart';
 import 'orderItem.dart';
 
 class Order {
   final String orderId;
-  final Customer customer;
   final Table table;
 
   final List<OrderItem> items = [];
 
-  Order({required this.orderId, required this.customer, required this.table});
+  Order({required this.orderId, required this.table});
 
   double get totalPrice {
     double total = 0;
