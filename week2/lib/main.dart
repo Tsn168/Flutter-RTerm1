@@ -1,35 +1,124 @@
-import 'models/MenuItem.dart';
-import 'models/table.dart';
-import 'models/restaurant.dart';
-import 'services/Restaurant_service.dart';
+import 'package:flutter/material.dart';
+import 'screens/welcome_screen.dart';
+import 'screens/menu_screen.dart';
 
 void main() {
-  // Setup restaurant
-  final restaurant = Restaurant(name: 'My Restaurant');
+  runApp(const RestaurantApp());
+}
 
-  final table1 = Table(tableNumber: 1, numberOfSeats: 4);
-  final table2 = Table(tableNumber: 2, numberOfSeats: 2);
-  restaurant.addTable(table1);
-  restaurant.addTable(table2);
+class RestaurantApp extends StatelessWidget {
+  const RestaurantApp({super.key});
 
-  final burger = MenuItem(itemName: 'Burger', price: 8.99);
-  final pizza = MenuItem(itemName: 'Pizza', price: 12.50);
-  restaurant.addMenuItem(burger);
-  restaurant.addMenuItem(pizza);
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Restaurant Management',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF8B3A1A)),
+        useMaterial3: true,
+      ),
+      home: const AppRoot(),
+    );
+  }
+}
 
-  final service = RestaurantService();
+// Root widget that holds state and passes it down as props (stateful only here)
+class AppRoot extends StatefulWidget {
+  const AppRoot({super.key});
 
-  // Create an order
-  final order = service.createOrder(orderId: 'ORD-001', table: table1);
-  if (order != null) {
-    service.addItemToOrder(order: order, menuItem: burger, quantity: 2);
-    service.addItemToOrder(order: order, menuItem: pizza, quantity: 1);
+  @override
+  State<AppRoot> createState() => _AppRootState();
+}
 
-    print('Order: ${order.orderId}');
-    print('Table: ${order.table.tableNumber}');
-    for (final item in order.items) {
-      print('  ${item.menuItem.itemName} x${item.quantity} = \$${item.subtotal.toStringAsFixed(2)}');
+class _AppRootState extends State<AppRoot> {
+  bool _showMenu = false;
+  String _selectedCategory = 'All';
+
+  final List<MenuItemData> _items = [
+    const MenuItemData(
+      name: 'Fried Rice',
+      description: 'Fried rice with chicken, egg and scallions',
+      price: 3.50,
+      isAvailable: true,
+      category: 'Food',
+      quantity: 1,
+    ),
+    const MenuItemData(
+      name: 'Beef Noodle',
+      description: 'Slow-braised beef broth with tender noodles',
+      price: 4.00,
+      isAvailable: true,
+      category: 'Food',
+      quantity: 1,
+    ),
+    const MenuItemData(
+      name: 'Spring Rolls',
+      description: 'Crispy vegetable rolls with sweet chili dip',
+      price: 2.50,
+      isAvailable: true,
+      category: 'Food',
+      quantity: 0,
+    ),
+    const MenuItemData(
+      name: 'Coke',
+      description: 'Chilled 330ml can with ice cup',
+      price: 1.00,
+      isAvailable: false,
+      category: 'Drinks',
+      quantity: 0,
+    ),
+  ];
+
+  void _addItem(MenuItemData item) {
+    setState(() {
+      final index = _items.indexOf(item);
+      _items[index] = MenuItemData(
+        name: item.name,
+        description: item.description,
+        price: item.price,
+        isAvailable: item.isAvailable,
+        category: item.category,
+        imageUrl: item.imageUrl,
+        quantity: item.quantity + 1,
+      );
+    });
+  }
+
+  void _removeItem(MenuItemData item) {
+    if (item.quantity == 0) return;
+    setState(() {
+      final index = _items.indexOf(item);
+      _items[index] = MenuItemData(
+        name: item.name,
+        description: item.description,
+        price: item.price,
+        isAvailable: item.isAvailable,
+        category: item.category,
+        imageUrl: item.imageUrl,
+        quantity: item.quantity - 1,
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_showMenu) {
+      return WelcomeScreen(
+        tableName: 'Table 05',
+        onViewMenu: () => setState(() => _showMenu = true),
+      );
     }
-    print('Total: \$${order.totalPrice.toStringAsFixed(2)}');
+
+    return MenuScreen(
+      restaurantName: 'Campus Bistro',
+      tableName: 'Table 05',
+      selectedCategory: _selectedCategory,
+      items: _items,
+      onCategorySelected: (c) => setState(() => _selectedCategory = c),
+      onAdd: _addItem,
+      onRemove: _removeItem,
+      onViewOrder: () {},
+    );
   }
 }
