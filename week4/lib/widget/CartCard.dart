@@ -12,8 +12,18 @@ class CartCard extends StatelessWidget {
     required this.onRemove,
   });
 
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Row(
+      children: [
+        child: Text(
+          cart.name,
+          style: TextStyle(
+            fontsize: 16,
+          )
+        )
+      ],
+    );
   }
 }
