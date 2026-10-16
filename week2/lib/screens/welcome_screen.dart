@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'menu_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   final String tableName;
-  final VoidCallback? onViewMenu;
 
-  const WelcomeScreen({super.key, this.tableName = 'Table 05', this.onViewMenu});
+  const WelcomeScreen({super.key, this.tableName = 'Table 05'});
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +131,14 @@ class WelcomeScreen extends StatelessWidget {
 
             // View Menu button
             ElevatedButton(
-              onPressed: onViewMenu,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => MenuScreen(tableName: tableName),
+                  ),
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: brown,
                 foregroundColor: Colors.white,

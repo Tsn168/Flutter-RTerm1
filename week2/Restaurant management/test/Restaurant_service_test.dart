@@ -42,7 +42,14 @@ void main() {
 
     final order = service.createOrder(orderId: 'O001', table: table);
 
-    final menuItem = MenuItem(itemName: 'Fried Rice', price: 5.0);
+    final menuItem = MenuItem(
+      id: 'test1',
+      itemName: 'Fried Rice',
+      price: 5.0,
+      category: 'Food',
+      image: '',
+      description: 'Test item',
+    );
 
     final result = service.addItemToOrder(
       order: order!,
@@ -61,7 +68,14 @@ void main() {
 
     final order = service.createOrder(orderId: 'O001', table: table);
 
-    final menuItem = MenuItem(itemName: 'Fried Rice', price: 5.0);
+    final menuItem = MenuItem(
+      id: 'test2',
+      itemName: 'Fried Rice',
+      price: 5.0,
+      category: 'Food',
+      image: '',
+      description: 'Test item',
+    );
 
     final result = service.addItemToOrder(
       order: order!,

@@ -13,10 +13,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Restaurant Management',
       debugShowCheckedModeBanner: false,
-      home: WelcomeScreen(
-        tableName: 'Table 05',
-        onViewMenu: () {},
+      theme: ThemeData(
+        fontFamily: 'Roboto',
+        scaffoldBackgroundColor: const Color(0xFFF5F5FA),
       ),
+      home: const WelcomeScreen(tableName: 'Table 05'),
     );
   }
 }

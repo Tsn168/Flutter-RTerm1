@@ -5,7 +5,7 @@ class Cartscreen extends StatefulWidget {
 
   @override
   State<Cartscreen> createState() => _CartscreenState();
-  List<Cart> carts = [];
+  // List<Cart> carts = [];
 }
 
 class _CartscreenState extends State<Cartscreen> {

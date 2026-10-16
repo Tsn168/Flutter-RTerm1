@@ -4,14 +4,82 @@ class CartBar extends StatelessWidget {
   final int itemCount;
   final double totalPrice;
   final VoidCallback viewOrder;
-  const CartBar(
-      {super.key,
-      required this.itemCount,
-      required this.totalPrice,
-      required this.viewOrder});
+
+  const CartBar({
+    super.key,
+    required this.itemCount,
+    required this.totalPrice,
+    required this.viewOrder,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    const brown = Color(0xFF8B3A1A);
+
+    return Container(
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: const Color(0xFF2D2D2D),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        children: [
+          // Burger icon
+          Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              color: brown,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const Icon(Icons.receipt_long,
+                color: Colors.white, size: 22),
+          ),
+          const SizedBox(width: 12),
+
+          // Item count + total
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '$itemCount item${itemCount == 1 ? '' : 's'} selected',
+                style: const TextStyle(color: Colors.white70, fontSize: 12),
+              ),
+              Text(
+                '\$${totalPrice.toStringAsFixed(2)}',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+
+          const Spacer(),
+
+          // View Order button
+          ElevatedButton(
+            onPressed: viewOrder,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: brown,
+              foregroundColor: Colors.white,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              elevation: 0,
+            ),
+            child: const Text(
+              'View Order',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
