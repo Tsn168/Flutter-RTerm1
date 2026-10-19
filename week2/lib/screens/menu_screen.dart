@@ -55,8 +55,7 @@ class _MenuScreenState extends State<MenuScreen> {
       price: 1.00,
       category: 'Drinks',
       isAvailable: false,
-      image:
-          'https://images.unsplash.com/photo-1554866585-cd94860890b7?w=400',
+      image: 'https://images.unsplash.com/photo-1554866585-cd94860890b7?w=400',
       description: 'Chilled 330ml can with ice cup',
     ),
     MenuItem(
@@ -123,11 +122,8 @@ class _MenuScreenState extends State<MenuScreen> {
     return total;
   }
 
-  // Cart items (only those with qty > 0)
   List<MenuItem> get cartItems {
-    return menuItems
-        .where((item) => (quantities[item.id] ?? 0) > 0)
-        .toList();
+    return menuItems.where((item) => (quantities[item.id] ?? 0) > 0).toList();
   }
 
   void goToOrderReview() {
@@ -141,7 +137,6 @@ class _MenuScreenState extends State<MenuScreen> {
         ),
       ),
     ).then((updatedQuantities) {
-      // If user changed quantities on review screen, sync back
       if (updatedQuantities != null) {
         setState(() {
           quantities.clear();
@@ -178,8 +173,8 @@ class _MenuScreenState extends State<MenuScreen> {
                 children: [
                   // Active dine-in banner
                   Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 8),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
@@ -209,11 +204,9 @@ class _MenuScreenState extends State<MenuScreen> {
                       ],
                     ),
                   ),
-
-                  // Category chips
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Row(
                       children: categories.map((cat) {
                         return Padding(
@@ -229,23 +222,17 @@ class _MenuScreenState extends State<MenuScreen> {
                   ),
 
                   const SizedBox(height: 4),
-
-                  // Menu items list
                   ...items.map((item) => Menuitemcard(
                         menuItem: item,
                         quantity: quantities[item.id] ?? 0,
                         onAdd: () => addItem(item),
                         onRemove: () => removeItem(item),
                       )),
-
-                  // Space so CartBar doesn't overlap last item
                   if (hasCart) const SizedBox(height: 80),
                 ],
               ),
             ),
           ),
-
-          // CartBar at the bottom
           if (hasCart)
             CartBar(
               itemCount: totalItemCount,
